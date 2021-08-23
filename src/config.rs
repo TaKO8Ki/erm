@@ -42,6 +42,10 @@ impl FrumConfig {
     pub fn aliases_dir(&self) -> std::path::PathBuf {
         ensure_dir_exists(self.base_dir().join("aliases"))
     }
+
+    pub fn temp_installations_dir(&self) -> std::path::PathBuf {
+        self.versions_dir().join(".downloads")
+    }
 }
 
 fn ensure_dir_exists<T: AsRef<std::path::Path>>(path: T) -> T {

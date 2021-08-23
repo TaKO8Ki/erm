@@ -117,6 +117,7 @@ frum init | source
 - **versions**: Lists installed Ruby versions.
 - **global**: Sets the global Ruby version.
 - **local**: Sets the current Ruby version.
+- **clean**: Remove old downloads.
 
 ### Ruby configuration options
 

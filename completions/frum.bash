@@ -13,6 +13,9 @@ _frum() {
                 cmd="frum"
                 ;;
             
+            clean)
+                cmd+="__clean"
+                ;;
             completions)
                 cmd+="__completions"
                 ;;
@@ -44,7 +47,7 @@ _frum() {
 
     case "${cmd}" in
         frum)
-            opts=" -h -V  --help --version --log-level --ruby-build-mirror --frum-dir   init install uninstall versions local global completions help"
+            opts=" -h -V  --help --version --log-level --ruby-build-mirror --frum-dir   init install uninstall versions local global completions clean help"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
@@ -71,6 +74,21 @@ _frum() {
             return 0
             ;;
         
+        frum__clean)
+            opts=" -h -V  --help --version  "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
         frum__completions)
             opts=" -l -h -V -s  --list --help --version --shell  "
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then

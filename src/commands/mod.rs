@@ -1,3 +1,4 @@
+pub mod clean;
 pub mod completions;
 pub mod global;
 pub mod init;

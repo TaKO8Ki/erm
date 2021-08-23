@@ -78,4 +78,7 @@ pub fn build_cli() -> App<'static, 'static> {
                         .hidden(true),
                 ),
         )
+        .subcommand(
+            SubCommand::with_name("clean").about("Remove all downloads")
+        )
 }

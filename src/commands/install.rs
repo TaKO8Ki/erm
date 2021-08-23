@@ -96,7 +96,7 @@ impl crate::command::Command for Install {
         }
 
         outln!(config#Info, "{} Extracting {}", "==>".green(), archive(&version).green());
-        let temp_installations_dir = installations_dir.join(".downloads");
+        let temp_installations_dir = config.temp_installations_dir();
         std::fs::create_dir_all(&temp_installations_dir).map_err(FrumError::IoError)?;
         let temp_dir = tempfile::TempDir::new_in(&temp_installations_dir)
             .expect("Can't generate a temp directory");

@@ -82,6 +82,7 @@ fn main() {
             }
             .call(&config);
         }
+        ("clean", _) => commands::clean::Clean {}.call(&config),
         _ => (),
     };
 }

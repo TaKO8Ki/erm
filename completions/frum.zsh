@@ -102,6 +102,14 @@ _arguments "${_arguments_options[@]}" \
 '--version[Prints version information]' \
 && ret=0
 ;;
+(clean)
+_arguments "${_arguments_options[@]}" \
+'-h[Prints help information]' \
+'--help[Prints help information]' \
+'-V[Prints version information]' \
+'--version[Prints version information]' \
+&& ret=0
+;;
 (help)
 _arguments "${_arguments_options[@]}" \
 '-h[Prints help information]' \
@@ -125,9 +133,17 @@ _frum_commands() {
 "local:Sets the current Ruby version" \
 "global:Sets the global Ruby version" \
 "completions:Print shell completions to stdout" \
+"clean:Remove all downloads" \
 "help:Prints this message or the help of the given subcommand(s)" \
     )
     _describe -t commands 'frum commands' commands "$@"
+}
+(( $+functions[_frum__clean_commands] )) ||
+_frum__clean_commands() {
+    local commands; commands=(
+        
+    )
+    _describe -t commands 'frum clean commands' commands "$@"
 }
 (( $+functions[_frum__completions_commands] )) ||
 _frum__completions_commands() {
