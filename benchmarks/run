@@ -1,0 +1,54 @@
+# #!/bin/bash
+
+set -e
+
+export frum_DIR
+
+BASE_DIR="$(dirname "$(realpath "$0")")"
+cd "$BASE_DIR" || exit 1
+
+frum_DIR="$(mktemp -d)"
+export PATH="$BASE_DIR/../target/release:$PATH"
+
+mkdir results 2>/dev/null || :
+
+if [ ! -f "$BASE_DIR/../target/release/frum" ]; then
+  echo "Can't access the release version of frum"
+  exit 1
+fi
+
+if ! command -v hyperfine >/dev/null 2>&1; then
+  echo "Can't access Hyperfine. Are you sure it is installed?"
+  echo "  if not, visit https://github.com/sharkdp/hyperfine"
+  exit 1
+fi
+
+chmod +x ./frum
+chmod +x ./frum_reason
+chmod +x ./rbenv
+chmod +x ~/.frum-latest/frum
+chmod +x ../target/release/frum
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:$PATH"
+
+# command exists?
+~/.frum-latest/frum -V
+frum -V
+rbenv -v
+frum install 2.6.5
+rbenv install 2.6.5
+frum global 2.6.5
+rbenv global 2.6.5
+
+hyperfine \
+  --warmup 2 \
+  --min-runs=20 \
+  --time-unit=millisecond \
+  --export-json="./results/basic.json" \
+  --export-markdown="./results/basic.md" \
+  --show-output \
+  --prepare 'rm -rf ~/.rbenv/versions/2.6.5 ~/.frum/versions/2.6.5' \
+  "./rbenv" \
+  "./frum" \
+  "./frum_reason"

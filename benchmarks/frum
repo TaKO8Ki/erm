@@ -1,0 +1,6 @@
+#!/bin/bash
+
+eval "$(~/.frum-latest/frum init)"
+~/.frum-latest/frum install 2.6.5
+~/.frum-latest/frum local 2.6.5
+ruby -v

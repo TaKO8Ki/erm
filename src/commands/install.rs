@@ -227,6 +227,8 @@ fn build_package(
     };
     debug!("make install");
     let make_install = Command::new("make")
+        .arg("-j")
+        .arg(&num_cpus::get().to_string())
         .arg("install")
         .current_dir(&current_dir)
         .output()

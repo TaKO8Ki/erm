@@ -1,0 +1,6 @@
+#!/bin/bash
+
+eval "$(rbenv init -)"
+rbenv install 2.6.5
+rbenv local 2.6.5
+ruby -v
